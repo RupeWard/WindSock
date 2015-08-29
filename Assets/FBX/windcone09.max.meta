@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f866f7e3828e50d44a609064c62ec6f2
+guid: 4ca70babe88d52c41b966482e47a78fb
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
@@ -7,7 +7,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Cone001
+    4300000: WindCone09
     9500000: //RootNode
   materials:
     importMaterials: 1
