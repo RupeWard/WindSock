@@ -898,7 +898,12 @@ public class UltimateRope : MonoBehaviour
         }
 	}
 
-    public void DeleteRope(bool bResetNodePositions = false)
+	public void DeleteRope()
+	{
+		DeleteRope(false);
+	}
+
+    public void DeleteRope(bool bResetNodePositions)
     {
         // Delete rope links
 
@@ -1067,7 +1072,12 @@ public class UltimateRope : MonoBehaviour
         }
     }
 
-    public bool Regenerate(bool bResetNodePositions = false)
+	public bool Regenerate()
+	{
+		return Regenerate(false);
+	}
+
+    public bool Regenerate(bool bResetNodePositions)
     {
         m_bLastStatusIsError = true;
 
@@ -2319,7 +2329,12 @@ public class UltimateRope : MonoBehaviour
         }
     }
 
-	public void FillLinkMeshIndicesRope(int nLinearLinkIndex, int nTotalLinks, ref int[] indices, bool bBreakable, bool bBrokenLink = false)
+	public void FillLinkMeshIndicesRope(int nLinearLinkIndex, int nTotalLinks, ref int[] indices, bool bBreakable)
+	{
+		FillLinkMeshIndicesRope(nLinearLinkIndex, nTotalLinks, ref indices, bBreakable, false);
+	}
+
+	public void FillLinkMeshIndicesRope(int nLinearLinkIndex, int nTotalLinks, ref int[] indices, bool bBreakable, bool bBrokenLink)
 	{
 		if(bBreakable)
 		{
@@ -2368,7 +2383,12 @@ public class UltimateRope : MonoBehaviour
 		}
 	}
 
-    public void FillLinkMeshIndicesSections(int nLinearLinkIndex, int nTotalLinks, ref int[] indices, bool bBreakable, bool bBrokenLink = false)
+	public void FillLinkMeshIndicesSections(int nLinearLinkIndex, int nTotalLinks, ref int[] indices, bool bBreakable)
+	{
+		FillLinkMeshIndicesSections(nLinearLinkIndex, nTotalLinks, ref indices, bBreakable, false);
+	}
+
+    public void FillLinkMeshIndicesSections(int nLinearLinkIndex, int nTotalLinks, ref int[] indices, bool bBreakable, bool bBrokenLink)
 	{
 		if(bBreakable)
 		{
@@ -2963,7 +2983,12 @@ public class UltimateRope : MonoBehaviour
         m_nFirstNonCoilNode = 0;
     }
 
-    void CreateRopeJoints(bool bCheckIfBroken = false)
+	void CreateRopeJoints()
+	{
+		CreateRopeJoints(false);
+	}
+
+    void CreateRopeJoints(bool bCheckIfBroken)
     {
         if(RopeNodes == null)     return;
         if(RopeNodes.Count  == 0) return;
@@ -3641,7 +3666,12 @@ public class UltimateRope : MonoBehaviour
         m_fCurrentCoilLength = fCoilLength;
     }
 
-    Quaternion GetLinkedObjectLocalRotation(float fTwistAngle = 0.0f)
+	Quaternion GetLinkedObjectLocalRotation()
+	{
+		return GetLinkedObjectLocalRotation(0.0f);
+	}
+
+    Quaternion GetLinkedObjectLocalRotation(float fTwistAngle)
     {
         if(LinkAxis == EAxis.X)      return Quaternion.LookRotation(Vector3.right)    * Quaternion.AngleAxis(fTwistAngle, Vector3.right);
         if(LinkAxis == EAxis.Y)      return Quaternion.LookRotation(Vector3.up)       * Quaternion.AngleAxis(fTwistAngle, Vector3.up);
