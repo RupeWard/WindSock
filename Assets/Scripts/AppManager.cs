@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Main01 : MonoBehaviour {
+public class AppManager : SingletonApplicationLifetime<AppManager> {
 
 	public Transform cameraHolder;
 
@@ -14,11 +14,6 @@ public class Main01 : MonoBehaviour {
 	public void OnCloseClicked()
 	{
 		Application.Quit ();
-	}
-
-	// Use this for initialization
-	void Start () {
-	
 	}
 	
 	// Update is called once per frame
