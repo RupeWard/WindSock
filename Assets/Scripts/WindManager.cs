@@ -183,12 +183,12 @@ public class WindManager : SingletonApplicationLifetime<WindManager>
 		{
 			case EDirectionChangeState.LEFT:
 			{
-				RotateWind(-1f * Vector3.up * directionChangeAcceleration * Time.deltaTime); 
+				RotateWind(Vector3.up * directionChangeAcceleration * Time.deltaTime); 
 				break;
 			}
 			case EDirectionChangeState.RIGHT:
 			{
-				RotateWind(Vector3.up * directionChangeAcceleration * Time.deltaTime); 
+				RotateWind(-1f * Vector3.up * directionChangeAcceleration * Time.deltaTime); 
 				break;
 			}
 			case EDirectionChangeState.NONE:
