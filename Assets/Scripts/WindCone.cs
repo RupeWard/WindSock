@@ -18,6 +18,8 @@ public class WindCone : MonoBehaviour
 
 	private float rimSeparation_;
 
+	public Rigidbody[] windForceReceivers = new Rigidbody[0];
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -35,7 +37,10 @@ public class WindCone : MonoBehaviour
 	{
 		if (WindManager.Instance.CurrentWindSpeed > 0f) 
 		{
-			rigidbody.AddForce (WindManager.Instance.CurrentWindVelocity);		
+			foreach (Rigidbody r in windForceReceivers)
+			{
+				r.AddForce (WindManager.Instance.CurrentWindVelocity);		
+			}
 		}
 	}
 
