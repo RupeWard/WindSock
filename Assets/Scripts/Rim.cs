@@ -31,26 +31,22 @@ public class Rim : MonoBehaviour {
 
 	public void OnCollisionEnter(Collision col)
 	{
-		Debug.Log(gameObject.name+" hit "+col.gameObject.name);
+		Debug.Log(gameObject.name+" hit "+col.gameObject.name+" with tag '"+col.gameObject.tag+"'");
 		if (col.gameObject.tag == "Floor") 
 		{
-			audio.clip = floorNoise;
-			audio.Play();
+			audio.PlayOneShot(floorNoise);
 		}
 		else if (col.gameObject.tag == "Pole") 
 		{
-			audio.clip = poleNoise;
-			audio.Play();
+			audio.PlayOneShot(poleNoise);
 		}
 		else if (col.gameObject.tag == "Rope") 
 		{
-			audio.clip = ropeNoise;
-			audio.Play();
+			audio.PlayOneShot(ropeNoise);
 		}
 		else if (col.gameObject.tag == "Cone") 
 		{
-			audio.clip = coneNoise;
-			audio.Play();
+			audio.PlayOneShot(coneNoise);
 		}
 	}
 }
