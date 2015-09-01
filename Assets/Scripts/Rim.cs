@@ -10,9 +10,11 @@ public class Rim : MonoBehaviour {
 	public Color nearColour;
 	public Color farColour;
 
+	private MeshRenderer meshRenderer_;
+
 	void Start () 
 	{
-		WindManager.Instance.velocityChangedAction += HandleWindVelocity;
+		meshRenderer_ = GetComponent<MeshRenderer> ();
 	}
 	
 	void Update () 
@@ -20,11 +22,10 @@ public class Rim : MonoBehaviour {
 	
 	}
 
-	void HandleWindVelocity(Vector3 v)
+	public void HandleClosenessFactor(float f)
 	{
-
+		meshRenderer_.material.color = Color.Lerp (nearColour, farColour, f);
 	}
-
 
 	void OnCollisionEnter(Collision col)
 	{
