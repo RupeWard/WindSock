@@ -1,35 +1,25 @@
 fileFormatVersion: 2
-guid: 1946ab2e688bacb4ca02de548e03279c
+guid: 49803dd253e3e754e88dbdac4174601e
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
-    100000: Box001
-    100002: Torus001
-    100004: Torus002
-    100006: WindCone09
-    100008: //RootNode
-    100010: WindCone10a
-    400000: Box001
-    400002: Torus001
-    400004: Torus002
-    400006: WindCone09
-    400008: //RootNode
-    400010: WindCone10a
-    2300000: Box001
-    2300002: Torus001
-    2300004: Torus002
-    2300006: WindCone09
-    2300008: WindCone10a
-    3300000: Box001
-    3300002: Torus001
-    3300004: Torus002
-    3300006: WindCone09
-    3300008: WindCone10a
-    4300000: WindCone09
+    100000: Torus001
+    100002: Torus002
+    100004: WindCone10a
+    100006: //RootNode
+    400000: Torus001
+    400002: Torus002
+    400004: WindCone10a
+    400006: //RootNode
+    2300000: Torus001
+    2300002: Torus002
+    2300004: WindCone10a
+    3300000: Torus001
+    3300002: Torus002
+    3300004: WindCone10a
+    4300000: WindCone10a
     4300002: Torus001
     4300004: Torus002
-    4300006: Box001
-    4300008: WindCone10a
     9500000: //RootNode
   materials:
     importMaterials: 1

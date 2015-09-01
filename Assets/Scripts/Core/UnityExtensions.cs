@@ -9,6 +9,11 @@ public static class UnityExtensions
 		t.localPosition = new Vector3 (x, y, t.localPosition.z);
 	}
 
+	public static void SetLocalZPosition(this Transform t, float z)
+	{
+		t.localPosition = new Vector3 (t.localPosition.x, t.localPosition.y, z);
+	}
+
 	public static void SetLocalXYPosition(this Transform t, Vector2 v)
 	{
 		t.localPosition = new Vector3 (v.x, v.y, t.localPosition.z);

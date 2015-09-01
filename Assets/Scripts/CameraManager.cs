@@ -4,11 +4,20 @@ using System.Collections;
 public class CameraManager : SingletonApplicationLifetime<CameraManager> {
 
 	public Transform cameraHolder;
+	public Transform cameraTransform;
+	public Transform windConeTransform;
 
 	public float maxCameraTurnSpeed = 1f;
 	public float turnAcceleration = 1f;
 
-	private float currentTurnSpeed = 0f;
+	private float currentTurnSpeed_ = 0f;
+
+	public float minDistance = 0.5f;
+	public float maxDistance = 20f;
+	public float zoomAcceleration = 1f;
+	public float currentZoomSpeed = 0f;
+	
+#region turn
 
 	private enum ECameraTurnState
 	{
@@ -38,10 +47,44 @@ public class CameraManager : SingletonApplicationLifetime<CameraManager> {
 	{
 		cameraTurnState_ = ECameraTurnState.STILL;
 	}
+#endregion turn
+
+#region zoom
+	
+	private enum ECameraZoomState
+	{
+		NONE,
+		IN,
+		OUT
+	}
+	
+	private ECameraZoomState cameraZoomState_ = ECameraZoomState.NONE;
+	
+	public void OnInPressed()
+	{
+		cameraZoomState_ = ECameraZoomState.IN;
+	}
+	
+	public void OnInReleased()
+	{
+		cameraZoomState_ = ECameraZoomState.NONE;
+	}
+	
+	public void OnOutPressed()
+	{
+		cameraZoomState_ = ECameraZoomState.OUT;
+	}
+	
+	public void OnOutReleased()
+	{
+		cameraZoomState_ = ECameraZoomState.NONE;
+	}
+#endregion turn
 	
 
-	void Start () {
-	
+	void Start () 
+	{
+		cameraTransform.LookAt(windConeTransform.position);
 	}
 	
 	// Update is called once per frame
@@ -51,33 +94,111 @@ public class CameraManager : SingletonApplicationLifetime<CameraManager> {
 		{
 			case ECameraTurnState.LEFT:
 			{
-				currentTurnSpeed -= Time.deltaTime * turnAcceleration;
-				if (currentTurnSpeed < -1f * maxCameraTurnSpeed)
+				currentTurnSpeed_ -= Time.deltaTime * turnAcceleration;
+				if (currentTurnSpeed_ < -1f * maxCameraTurnSpeed)
 				{
-					currentTurnSpeed = -1f * maxCameraTurnSpeed;
+					currentTurnSpeed_ = -1f * maxCameraTurnSpeed;
 				}
 				break;
 			}
 			case ECameraTurnState.RIGHT:
 			{
-				currentTurnSpeed += Time.deltaTime * turnAcceleration;
-				if (currentTurnSpeed > maxCameraTurnSpeed)
+				currentTurnSpeed_ += Time.deltaTime * turnAcceleration;
+				if (currentTurnSpeed_ > maxCameraTurnSpeed)
 				{
-					currentTurnSpeed = maxCameraTurnSpeed;
+					currentTurnSpeed_ = maxCameraTurnSpeed;
 				}
 				break;
 			}
 			case ECameraTurnState.STILL:
 			{
-				currentTurnSpeed = 0f;
+				currentTurnSpeed_ = 0f;
 				break;
 			}	
 				
 		}
-		if (currentTurnSpeed != 0f) 
+		if (currentTurnSpeed_ != 0f) 
 		{
-			cameraHolder.RotateAround(Vector3.zero, Vector3.up, currentTurnSpeed);
+			cameraHolder.RotateAround(Vector3.zero, Vector3.up, currentTurnSpeed_);
 		}
+
+		float currentDistance = Vector3.Distance (cameraTransform.position, windConeTransform.position);
+
+		switch (cameraZoomState_) 
+		{
+		case ECameraZoomState.IN:
+		{
+			if (currentDistance > minDistance)
+			{
+				currentZoomSpeed += zoomAcceleration * Time.deltaTime;
+			}
+			else
+			{
+				currentZoomSpeed = 0f;
+			}
+			break;
+		}
+		case ECameraZoomState.OUT:
+		{
+			if (currentDistance < maxDistance)
+			{
+				currentZoomSpeed -= zoomAcceleration * Time.deltaTime;
+			}
+			else
+			{
+				currentZoomSpeed = 0f;
+			}
+			break;
+		}
+		case ECameraZoomState.NONE:
+		{
+			currentZoomSpeed = 0f;
+			break;
+		}	
+
+		}
+		if (currentZoomSpeed != 0f)
+		{
+			cameraTransform.position 
+				= Vector3.MoveTowards(cameraTransform.position, 
+				                      windConeTransform.position,
+				                      currentZoomSpeed);
+		}
+		cameraTransform.LookAt(windConeTransform.position);			
+
+		/*
+		float z = cameraTransform.localPosition.z;
+		switch (cameraZoomState_) 
+		{
+		case ECameraZoomState.IN:
+		{
+			z = z - cameraZoomSpeed * Time.deltaTime;
+			if (z < minDistance)
+			{
+				z = minDistance;
+			}
+			break;
+		}
+		case ECameraZoomState.OUT:
+		{
+			z = z + cameraZoomSpeed * Time.deltaTime;
+			if (z > maxDistance)
+			{
+				z = maxDistance;
+			}
+			break;
+		}
+		case ECameraZoomState.NONE:
+		{
+			break;
+		}	
+			
+		}
+		if (z != cameraTransform.localPosition.z) 
+		{
+			cameraTransform.SetLocalZPosition(z);
+		}
+		*/
 
 	}
 }
