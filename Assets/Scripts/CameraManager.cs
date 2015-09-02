@@ -6,6 +6,7 @@ public class CameraManager : SingletonApplicationLifetime<CameraManager> {
 	public Transform cameraHolder;
 	public Transform cameraTransform;
 	public Transform windConeTransform;
+	public Transform viewTarget;
 
 	public float maxCameraTurnSpeed = 1f;
 	public float turnAcceleration = 1f;
@@ -84,7 +85,7 @@ public class CameraManager : SingletonApplicationLifetime<CameraManager> {
 
 	void Start () 
 	{
-		cameraTransform.LookAt(windConeTransform.position);
+		cameraTransform.LookAt(viewTarget.position);
 	}
 	
 	// Update is called once per frame
@@ -164,7 +165,7 @@ public class CameraManager : SingletonApplicationLifetime<CameraManager> {
 				                      windConeTransform.position,
 				                      currentZoomSpeed);
 		}
-		cameraTransform.LookAt(windConeTransform.position);			
+		cameraTransform.LookAt(viewTarget.position);			
 
 		/*
 		float z = cameraTransform.localPosition.z;
