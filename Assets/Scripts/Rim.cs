@@ -29,24 +29,35 @@ public class Rim : MonoBehaviour {
 		meshRenderer_.material.color = Color.Lerp (nearColour, farColour, f);
 	}
 
+
 	public void OnCollisionEnter(Collision col)
 	{
-		Debug.Log(gameObject.name+" hit "+col.gameObject.name+" with tag '"+col.gameObject.tag+"'");
+		string clip = "none";
 		if (col.gameObject.tag == "Floor") 
 		{
 			audio.PlayOneShot(floorNoise);
+			clip="FLOOR";
 		}
 		else if (col.gameObject.tag == "Pole") 
 		{
 			audio.PlayOneShot(poleNoise);
+			clip="POLE";
 		}
 		else if (col.gameObject.tag == "Rope") 
 		{
 			audio.PlayOneShot(ropeNoise);
+			clip="ROPE";
+		}
+		else if (col.transform.parent != null && col.transform.parent.gameObject.tag == "Rope") 
+		{
+			audio.PlayOneShot(ropeNoise);
+			clip="ROPENODE";
 		}
 		else if (col.gameObject.tag == "Cone") 
 		{
 			audio.PlayOneShot(coneNoise);
+			clip="CONE";
 		}
+		Debug.Log(gameObject.name+" hit "+col.gameObject.name+" with tag '"+col.gameObject.tag+"', played "+clip);
 	}
 }

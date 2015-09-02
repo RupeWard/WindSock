@@ -88,6 +88,20 @@ public class WindManager : SingletonApplicationLifetime<WindManager>
 	}
 	
 	private ESpeedChangeState speedChangeState_ = ESpeedChangeState.NONE;
+
+	private bool doubleSpeed = false;
+	public float doubleUp = 10f;
+
+	public void OnDoubleUpPressed()
+	{
+		speedChangeState_ = ESpeedChangeState.UP;
+		doubleSpeed = true;
+	}
+	
+	public void OnDoubleReleased()
+	{
+		speedChangeState_ = ESpeedChangeState.NONE;
+	}
 	
 
 	public void OnUpPressed()
@@ -108,6 +122,12 @@ public class WindManager : SingletonApplicationLifetime<WindManager>
 	public void OnDownReleased()
 	{
 		speedChangeState_ = ESpeedChangeState.NONE;
+	}
+
+	public void OnKillClicked()
+	{
+		speedChangeState_ = ESpeedChangeState.NONE;
+		SetSpeed (0f);
 	}
 
 	public float speedChangeAcceleration = 1f;
@@ -153,7 +173,8 @@ public class WindManager : SingletonApplicationLifetime<WindManager>
 		{
 			case ESpeedChangeState.UP:
 			{
-				newmag += Time.deltaTime * speedChangeAcceleration;
+				float factor = (doubleSpeed)?(doubleUp):(1f);
+				newmag += factor * Time.deltaTime * speedChangeAcceleration;
 				if (maxWindSpeed > 0f && newmag > maxWindSpeed)
 				{
 					newmag = maxWindSpeed;
