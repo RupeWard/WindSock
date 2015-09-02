@@ -16,6 +16,8 @@ public class WindCone : MonoBehaviour
 
 	public Transform cameraTransform;
 
+	public Transform myLight;
+
 	private float rimSeparation_;
 
 	public Rigidbody[] windForceReceivers = new Rigidbody[0];
@@ -90,6 +92,10 @@ public class WindCone : MonoBehaviour
 			{
 				rims[i].HandleClosenessFactor(fractions[i]);
 			}
+		}
+		if (myLight != null) 
+		{
+			myLight.LookAt(meshRenderer.transform.position);
 		}
 	}
 
