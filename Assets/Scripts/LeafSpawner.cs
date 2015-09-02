@@ -31,6 +31,7 @@ public class LeafSpawner : MonoBehaviour
 		Leaf leaf = go.GetComponent< Leaf > ();
 		go.transform.position = transform.position;
 		go.name = "Leaf_" + leafNum;
+		go.transform.parent = transform;
 		leafNum++;
 
 		StartCoroutine (SpawnCR ());
