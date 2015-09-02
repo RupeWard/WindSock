@@ -12,6 +12,9 @@ public class Rim : MonoBehaviour {
 	public Color nearColour;
 	public Color farColour;
 
+	public Transform touchFrom;
+	public float touchForce = 1f;
+
 	private MeshRenderer meshRenderer_;
 
 	void Start () 
@@ -21,7 +24,23 @@ public class Rim : MonoBehaviour {
 	
 	void Update () 
 	{
-	
+		{
+			if (Input.GetMouseButtonDown(0))
+			{
+				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+				RaycastHit hit;
+				if (Physics.Raycast(ray, out hit))
+				{
+					if (hit.collider.gameObject == gameObject)
+					{
+						Debug.Log("You touched "+gameObject.name);
+						Vector3 direction = transform.position - touchFrom.position;
+						direction = direction/direction.magnitude;
+						rigidbody.AddForce(direction * touchForce );
+					}
+				}
+			}
+		}
 	}
 
 	public void HandleClosenessFactor(float f)
