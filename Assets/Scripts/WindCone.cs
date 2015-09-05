@@ -93,6 +93,13 @@ public class WindCone : MonoBehaviour
 				rims[i].HandleClosenessFactor(fractions[i]);
 			}
 		}
+//		meshRenderer.material.SetFloat ("_AlphaMin", fractions [0]);
+//		meshRenderer.material.SetFloat ("_AlphaMax", fractions [1]);
+		float fmin = (rdiff + rimSeparation_) / 2f;
+		float fmax = 1f-fmin;
+		meshRenderer.material.SetFloat ("_AlphaMin", fmax);
+		meshRenderer.material.SetFloat ("_AlphaMax", fmin);
+
 		if (myLight != null) 
 		{
 			myLight.LookAt(meshRenderer.transform.position);

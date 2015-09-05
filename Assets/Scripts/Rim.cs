@@ -45,7 +45,9 @@ public class Rim : MonoBehaviour {
 
 	public void HandleClosenessFactor(float f)
 	{
-		meshRenderer_.material.color = Color.Lerp (nearColour, farColour, f);
+		Color c = Color.Lerp (nearColour, farColour, f);
+		meshRenderer_.material.color = c;
+		meshRenderer_.material.SetFloat ("_Alpha", c.a);
 	}
 
 
