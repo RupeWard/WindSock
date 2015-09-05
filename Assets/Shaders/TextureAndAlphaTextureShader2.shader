@@ -66,7 +66,7 @@
 	            texColor.a = tex2D(_AlphaTex, i.uv);
 //				fixed4 texColor = _Color;
 				
-	            texColor.a = pow( i.uv2.yy * (_AlphaMax - _AlphaMin) + _AlphaMin, _AlphaPower);
+	            texColor.a = pow( i.uv2.y * (_AlphaMax - _AlphaMin) + _AlphaMin, _AlphaPower);
 				texColor.a = texColor.a * _Alpha;
 	            return texColor;
 			}

@@ -136,7 +136,7 @@ public class WindCone : MonoBehaviour
 		}
 //		meshRenderer.material.SetFloat ("_AlphaMin", fractions [0]);
 //		meshRenderer.material.SetFloat ("_AlphaMax", fractions [1]);
-		float fmin = (rdiff + rimSeparation_) / 2f;
+		float fmin = (rdiff + rimSeparation_) / (2f * rimSeparation_);
 		float fmax = 1f-fmin;
 		meshRenderer.material.SetFloat ("_AlphaMin", fmax);
 		meshRenderer.material.SetFloat ("_AlphaMax", fmin);
