@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class WindManager : SingletonApplicationLifetime<WindManager> 
+public class WindManager : SingletonSceneLifetime<WindManager> 
 {
 	public float maxWindSpeed = 100f;
 

@@ -14,6 +14,12 @@ public class WindCone : MonoBehaviour
 
 	public Rim[] rims = new Rim[2];
 
+	public Color[] colourOptions = new Color[1];
+	private int coneColourIndex_ = 0;
+	private int rimColourIndex_ = 0;
+	public UnityEngine.UI.Image coneColourButtonImage;
+	public UnityEngine.UI.Image rimColourButtonImage;
+
 	public Transform cameraTransform;
 
 	public Transform myLight;
@@ -21,6 +27,41 @@ public class WindCone : MonoBehaviour
 	private float rimSeparation_;
 
 	public Rigidbody[] windForceReceivers = new Rigidbody[0];
+
+	public void OnConeColourClicked()
+	{
+		coneColourIndex_++;
+		if (coneColourIndex_ >= colourOptions.Length) 
+		{
+			coneColourIndex_ = 0;
+		}
+		OnConeColourChanged ();
+	}
+
+	public void OnRimColourClicked()
+	{
+		rimColourIndex_++;
+		if (rimColourIndex_ >= colourOptions.Length) 
+		{
+			rimColourIndex_ = 0;
+		}
+		OnRimColourChanged ();
+	}
+
+	private void OnConeColourChanged()
+	{
+		coneColourButtonImage.color = colourOptions [coneColourIndex_];
+		meshRenderer.material.color = colourOptions [coneColourIndex_];
+	}
+
+	private void OnRimColourChanged()
+	{
+		rimColourButtonImage.color = colourOptions [rimColourIndex_];
+		for (int i = 0; i<2; i++)
+		{
+			rims[i].SetColours(colourOptions[rimColourIndex_], new Vector2(0f,1f));
+		}
+	}
 
 	// Use this for initialization
 	void Start () 

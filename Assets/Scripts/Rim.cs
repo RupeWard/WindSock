@@ -17,6 +17,15 @@ public class Rim : MonoBehaviour {
 
 	private MeshRenderer meshRenderer_;
 
+	public void SetColours(Color c, Vector2 alphaRange)
+	{
+		nearColour = c;
+		nearColour.a = alphaRange.x;
+		farColour = c;
+		farColour.a = alphaRange.y;
+
+	}
+
 	void Start () 
 	{
 		meshRenderer_ = GetComponent<MeshRenderer> ();
@@ -79,6 +88,10 @@ public class Rim : MonoBehaviour {
 			audio.PlayOneShot(coneNoise);
 			clip="CONE";
 		}
-		Debug.Log(gameObject.name+" hit "+col.gameObject.name+" with tag '"+col.gameObject.tag+"', played "+clip);
+
+		if (AppSettings.DEBUG_AUDIO) 
+		{
+			Debug.Log(gameObject.name+" hit "+col.gameObject.name+" with tag '"+col.gameObject.tag+"', played "+clip);
+		}
 	}
 }

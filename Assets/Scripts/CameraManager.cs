@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CameraManager : SingletonApplicationLifetime<CameraManager> {
+public class CameraManager : SingletonSceneLifetime<CameraManager> {
 
 	public Transform cameraHolder;
 	public Transform cameraTransform;

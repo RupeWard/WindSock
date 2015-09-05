@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AppManager : SingletonApplicationLifetime<AppManager> 
+public class AppManager : SingletonSceneLifetime<AppManager> 
 {
 
 	public void OnCloseClicked()
