@@ -194,6 +194,10 @@ public class CameraManager : SingletonSceneLifetime<CameraManager> {
 		}	
 
 		}
+		if (currentZoomSpeed < 0f && cameraTransform.localPosition.y <= minY) 
+		{
+			currentZoomSpeed = 0f;
+		}
 		if (currentZoomSpeed != 0f)
 		{
 
