@@ -10,7 +10,10 @@ public class WindManager : SingletonSceneLifetime<WindManager>
 	public System.Action<Vector3> velocityChangedAction;
 	public System.Action<float> speedChangedAction;
 
+	public Transform windContainer;
+
 	private Vector3 lastDirection = Vector3.left;
+
 
 	public Vector3 CurrentWindVelocity
 	{
@@ -77,6 +80,7 @@ public class WindManager : SingletonSceneLifetime<WindManager>
 
 	public void RotateWind(Vector3 axis)
 	{
+		windContainer.transform.rotation = Quaternion.Euler (axis.x, axis.y /* + Mathf.PI / 2f */, axis.z) * windContainer.transform.rotation;
 		SetVelocity(Quaternion.Euler(axis.x, axis.y, axis.z) * currentWindVelocity_);
 	}
 
