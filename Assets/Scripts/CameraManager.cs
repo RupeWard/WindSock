@@ -17,7 +17,11 @@ public class CameraManager : SingletonSceneLifetime<CameraManager> {
 	public float maxDistance = 20f;
 	public float zoomAcceleration = 1f;
 	public float currentZoomSpeed = 0f;
-	
+
+	public float upDownSpeed = 1f;
+	public float minY = 0f;
+	public float maxY = 10f;
+
 #region turn
 
 	private enum ECameraTurnState
@@ -50,7 +54,39 @@ public class CameraManager : SingletonSceneLifetime<CameraManager> {
 	}
 #endregion turn
 
-#region zoom
+	#region updown
+	
+	private enum ECameraUpDownState
+	{
+		STILL,
+		UP,
+		DOWN
+	}
+	
+	private ECameraUpDownState cameraUpDownState_ = ECameraUpDownState.STILL;
+	
+	public void OnUpPressed()
+	{
+		cameraUpDownState_ = ECameraUpDownState.UP;
+	}
+	
+	public void OnUpReleased()
+	{
+		cameraUpDownState_ = ECameraUpDownState.STILL;
+	}
+	
+	public void OnDownPressed()
+	{
+		cameraUpDownState_ = ECameraUpDownState.DOWN;
+	}
+	
+	public void OnDownReleased()
+	{
+		cameraUpDownState_ = ECameraUpDownState.STILL;
+	}
+	#endregion updown
+	
+	#region zoom
 	
 	private enum ECameraZoomState
 	{
@@ -160,11 +196,47 @@ public class CameraManager : SingletonSceneLifetime<CameraManager> {
 		}
 		if (currentZoomSpeed != 0f)
 		{
+
 			cameraTransform.position 
 				= Vector3.MoveTowards(cameraTransform.position, 
 				                      windConeTransform.position,
 				                      currentZoomSpeed);
 		}
+
+		float currentHeight = cameraTransform.localPosition.y;
+		switch (cameraUpDownState_) 
+		{
+		case ECameraUpDownState.UP:
+		{
+			if (currentHeight < maxY)
+			{
+				currentHeight += upDownSpeed * Time.deltaTime;
+			}
+			break;
+		}
+		case ECameraUpDownState.DOWN:
+		{
+			if (currentHeight > minY)
+			{
+				currentHeight -= upDownSpeed * Time.deltaTime;
+			}
+			break;
+		}
+		case ECameraUpDownState.STILL:
+		{
+			break;
+		}	
+			
+		}
+		cameraTransform.SetLocalYPosition (currentHeight);
+		if (currentZoomSpeed != 0f)
+		{
+			cameraTransform.position 
+				= Vector3.MoveTowards(cameraTransform.position, 
+				                      windConeTransform.position,
+				                      currentZoomSpeed);
+		}
+
 		cameraTransform.LookAt(viewTarget.position);			
 
 		/*
