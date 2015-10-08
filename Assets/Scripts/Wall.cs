@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Wall : MonoBehaviour 
 {
-	public GameObject partSystem;
+	public ParticleSystem partSystem;
 
 	public enum ActiveWhen
 	{
@@ -14,6 +14,8 @@ public class Wall : MonoBehaviour
 	}
 
 	public ActiveWhen activeWhen;
+
+	public float emissionRate = 25f;
 
 	void Start () 
 	{
@@ -68,7 +70,8 @@ public class Wall : MonoBehaviour
 				break;
 			}
 		}
-		partSystem.SetActive(active);
+		partSystem.gameObject.SetActive(true);
+		partSystem.emissionRate = (active) ? (emissionRate) : (0);
 	}
 
 	public void OnTriggerEnter(Collider col)
